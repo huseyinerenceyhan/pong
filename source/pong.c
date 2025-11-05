@@ -32,7 +32,6 @@ void init_sprites(){
 	memcpy16(&pal_obj_mem[16 * 2], ball_spritePal, ball_spritePalLen/ sizeof(u16));
 }
 
-
 void move_player(player *p){
 	
 	if(key_held(KEY_UP)){
@@ -79,39 +78,43 @@ void move_player(player *p){
 }
 
 void game(){
-	
-	u32 p_tid= 0, p_pb= 0;
-	OBJ_ATTR *sprite_p= &obj_buffer[0];
-	obj_set_attr(sprite_p,
+	// INIT PLAYER
+	float x = 10;
+	float y = 80;
+	float speed = 0;
+	float acc = (float) 4/16;
+	float dec = (float) 1/16;
+	float cap = 2;
+	u32 tid= 0, pb= 0;
+	OBJ_ATTR *sprite= &obj_buffer[0];
+	obj_set_attr(sprite,
 	ATTR0_TALL,				
 	ATTR1_SIZE_8x16,					
-	ATTR2_PALBANK(p_pb) | p_tid);		
-	//player *p = create_player(p_x,p_y,p_speed,p_acc,p_dec,p_cap,&sprite_p);
-	player *p = create_player(10,80,0,(float)1/4,(float)1/16,2,&sprite_p);
+	ATTR2_PALBANK(pb) | tid);		
+	player *p = create_player(x,y,speed,acc,dec,cap,&sprite);
 	obj_set_pos(p->sprite,p->x,p->y);
-	
-	int a_x= 222, a_y= 0;
+	// INIT AI
+	x = 222;
+	y = 0;
+	cap = 1;
+	tid = 4;
+	pb = 1;
+	sprite = &obj_buffer[1];
+	obj_set_attr(sprite,
+	ATTR0_TALL,				
+	ATTR1_SIZE_8x16,					
+	ATTR2_PALBANK(pb) | tid);
+	player *a = create_player(x,y,speed,acc,dec,cap,&sprite);
+	obj_set_pos(a->sprite,a->x,a->y);
+
 	int b_x= 120, b_y= 80;
 	
 	int b_speed_x=-2;
 	float b_speed=0;
 
-	
-			// tile id, pal-bank
-	u32 a_tid= 4, a_pb= 1;
 	u32 b_tid= 6, b_pb= 2;
-
-	
-	OBJ_ATTR *ai= &obj_buffer[1];
 	OBJ_ATTR *ball= &obj_buffer[2];
 	
-
-		
-		obj_set_attr(ai,
-		ATTR0_TALL,				
-		ATTR1_SIZE_8x16,					
-		ATTR2_PALBANK(a_pb) | a_tid);		
-		obj_set_pos(ai,a_x,a_y);
 		
 		obj_set_attr(ball,
 		ATTR0_SQUARE,				
