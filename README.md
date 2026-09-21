@@ -1,3 +1,3 @@
 Developed for learning purposes.
 
-<img width="720" height="524" alt="pong" src="https://github.com/user-attachments/assets/0e9c718a-3391-44ee-b650-0b46299341f7" />
+<img width="780" height="547" alt="pong" src="https://github.com/user-attachments/assets/41e3b462-9349-4b95-8b83-ca593359219d" />
